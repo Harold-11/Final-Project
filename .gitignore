@@ -12,32 +12,7 @@ yarn.lock
 logs/
 *.log
 
-# Sistema operativo
-.DS_Store
-Thumbs.db
-desktop.ini
 
-# IDEs y editores
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.project
-.classpath
-.settings/
-
-# Build y distribución
-dist/
-build/
-out/
-
-# Datos de Docker y bases de datos
-postgres_data/
-pgadmin_data/
-*.sql
-*.sqlite
-*.db
 
 # Archivos temporales
 tmp/

@@ -1,0 +1,46 @@
+-- USERS (OAuth)
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  oauth_id VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  name VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- PRODUCTS
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  price NUMERIC(10,2) NOT NULL,
+  active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- PAYMENTS
+CREATE TABLE payments (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  amount NUMERIC(10,2) NOT NULL,
+  currency VARCHAR(10) DEFAULT 'PEN',
+  culqi_charge_id VARCHAR(255),
+  status VARCHAR(50) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- PAYMENT PRODUCTS 
+CREATE TABLE payment_products (
+  id SERIAL PRIMARY KEY,
+  payment_id INTEGER REFERENCES payments(id),
+  product_id INTEGER REFERENCES products(id),
+  quantity INTEGER DEFAULT 1
+);
+
+-- REFUNDS
+CREATE TABLE refunds (
+  id SERIAL PRIMARY KEY,
+  payment_id INTEGER REFERENCES payments(id),
+  amount NUMERIC(10,2) NOT NULL,
+  reason TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
